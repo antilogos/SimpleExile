@@ -1,0 +1,203 @@
+<!Doctype html>
+<html lang="en-US">
+<head>
+	<title>Simple Exile</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+	<!-- Data -->
+	<script src="dat_stat.js"></script>
+	<script src="dat_character.js"></script>
+	<!-- Navigation and page script -->
+	<script src="lib_initloop.js"></script>
+	<script src="lib_navigation.js"></script>
+	<script>
+	function debug() {
+		stat = new Stat();
+	}
+	window.onload = function() {
+		// call to initloop
+		loadStorage();
+		// call to navigation
+		displayInitialPage();
+		selectLang(stat.lang);
+		selectStyle(stat.theme);
+	}
+	// Lang
+	function selectLang(lang) {
+	  // TODO
+	}
+	// Style
+	function selectStyle(theme) {
+	  document.body.classList = "";
+	  document.body.classList.add(theme);
+	}
+	</script>
+	<!-- Style -->
+	<link rel="stylesheet" href="style.css">
+	<!--link rel="icon" type="image/x-icon" href="img/favicon.ico"-->
+</head>
+<!-- Body -->
+<body class="dark">
+	<!-- Header -->
+	<header>
+		<div id="header_div" class="flex-box">
+			<div>Lvl</div>
+			<div>Xph</div>
+			<div>Pow</div>
+			<div>Currencies</div>
+		</div>
+	</header>	
+	<div class="flex-box" id="main-frame">
+		<!-- Navigation bar -->
+		<div id="navigation-div">
+			<div>Menu</div>
+			<nav><ul>
+			<li id="btn_character"><button class="menu_button" onclick="displayPage('character')">Character</button>
+				<ul><div class="menu_div page_character">
+					<li id="btn_sheet"><button class="menu_button" onclick="displayPage('sheet')">Sheet</button>
+					<li id="btn_inventory"><button class="menu_button" onclick="displayPage('inventory')">Inventory</button>
+					<li id="btn_talent"><button class="menu_button" onclick="displayPage('talent')">Talent</button>
+					<li id="btn_gem"><button class="menu_button" onclick="displayPage('gem')">Gem</button>
+				</div></ul>
+			</li>
+			<li id="btn_encounter"><button class="menu_button" onclick="displayPage('encounter')">Encounter</button>
+				<ul><div class="menu_div page_encounter">
+					<li id="btn_quest"><button class="menu_button" onclick="displayPage('quest')">Quest</button>
+					<li id="btn_master"><button class="menu_button" onclick="displayPage('master')">Master</button>
+					<li id="btn_content"><button class="menu_button" onclick="displayPage('content')">Content</button>
+				</div></ul>
+			</li>
+			<li id="btn_hideout"><button class="menu_button" onclick="displayPage('hideout')">Hideout</button>
+				<ul><div class="menu_div page_hideout">
+					<li id="btn_bench"><button class="menu_button" onclick="displayPage('bench')">Crafting bench</button>
+					<li id="btn_stash"><button class="menu_button" onclick="displayPage('stash')">Stash</button>
+					<li id="btn_trade"><button class="menu_button" onclick="displayPage('trade')">Trade</button>
+				</div></ul>
+			</li>
+			<li id="btn_leaderboard"><button class="menu_button" onclick="displayPage('leaderboard')">Leaderboard</button>
+				<ul><div class="menu_div page_leaderboard">
+					<li id="btn_league"><button class="menu_button" onclick="displayPage('league')">League</button>
+					<li id="btn_guild"><button class="menu_button" onclick="displayPage('guild')">Guild</button>
+					<li id="btn_challenge"><button class="menu_button" onclick="displayPage('challenge')">Challenge</button>
+				</div></ul>
+			</li>
+		</div>
+		<!-- Main page -->
+		<div class="flex-box">
+			<!-- Page character -->
+			<div class="info_div page_character">
+				<div>Level breackdown</div>
+				<div>Gear breakdown</div>
+				<div class="page_sheet">
+					<div id="character_level_div"></div>
+					<div id="character_nextlevel_div"></div>
+					<div id="character_expperhour_div"></div>
+					<div id="character_arealevelpenalty_div"></div>
+					<div id="character_areapowerratio_div"></div>
+					<div id="character_passiverating_div"></div>
+				</div>
+				<div class="page_inventory">
+					Gear power modifier: ???
+					Gear loot modifier: ???
+					Gems efficiency?: ???
+					Jewel efficiency?: ???
+				</div>
+			</div>
+			<div class="action_div page_character">
+				<button>Pick reward => gear bonus or content unlock</Button>
+				<button>Choose talent => reduce area modifier/power quest requirement or increased gear/gem/jewel efficiency</button>
+				<button>Respect tree => rechoose talent</button>
+			</div>
+			<!-- Page quest -->
+			<div class="info_div page_encounter">
+				<div>Area breackdown</div>
+				<div>Loot breakdown</div>
+				<div>Investment breakdown</div>
+				<div class="page_quest">
+					Quests completed: ???
+					Power/Level required for next quest: ???
+					Skill points obtained: ???
+					Area level: ???
+					Base experience per hour: ???
+				</div>
+				<div class="page_content">
+					Content unlocked: ???
+					Current investment consumption: ???
+					Current modifier to experience: ???
+					Current modifier to loot: ???
+					Current modifier to power: ???
+					Experience area level penalty: ???
+					Experience power ratio (clearspeed or death modifier): ???
+				</div>
+			</div>
+			<div class="action_div page_encounter">
+				<button>Unlock content</button>
+				<button>Modulate investment</button>
+				<button>Respect atlas tree?</button>
+			</div>
+			<!-- Page hideout -->
+			<div class="info_div page_hideout">
+				<div>Stash content</div>
+				<div>Gear breakdown</div>
+				<div>Profit breakdown</div>
+				<div class="page_bench">
+					Theorycraft modifier: ???
+					Base inventory power: ???
+					Inventory power modifier: ???
+					Inventory loot modifier: ???
+				</div>
+				<div class="page_trade">
+					Theorycraft modifier: ???
+					Guild reputation modifier: ???
+					Expenditure factor: ???
+					Return over investment: ???
+				</div>
+			</div>
+			<div class="action_div page_hideout">
+				<button>Improve gear</button>
+				<button>Market action</button>
+				<button>Acquire monopoly?</button>
+				<button>Augment stash</button>
+			</div>
+			<!-- Page leaderboard -->
+			<div class="info_div page_leaderboard">
+				<div>Guild breakdown</div>
+				<div>Event breakdown</div>
+				<div class="page_guild">
+					Guild founded in/member: ???
+					Guild reputation: ???
+				</div>
+				<div class="page_challenge">
+					Current mods: ???
+					Remaining time: ???
+					Completion: ???
+				</div>
+			</div>
+			<div class="action_div page_guild">
+				<button>Recrute member</button>
+			</div>
+			<div class="action_div page_challenge">
+				<button>Focus achievement</button>
+			</div>
+			<div class="action_div page_league">
+				<form>
+					<label for="input_character_name">Character name:</label><input type="text" pattern="[a-zA-Z_]{3,24}" required id="input_character_name" form="btn_act_createcharacter"></input></br>
+					<div>League mods selection</div>
+					<input type="checkbox" id="input_league_season" form="btn_act_createcharacter"></input><label for="input_league_season">Season league (season league have a time limit)</label></br>
+					<input type="checkbox" id="input_league_hardcore" form="btn_act_createcharacter"></input><label for="input_league_hardcore">Hardcore (if die to power, kick out of league)</label></br>
+					<input type="checkbox" id="input_league_ssf" form="btn_act_createcharacter"></input><label for="input_league_ssf">Solo Self Found (cannot use trade or service)</label></br>
+					<input type="checkbox" id="input_league_ruthless" form="btn_act_createcharacter"></input><label for="input_league_ruthless">Ruthless (improved difficulty and scarcity)</label></br>
+					<button id="btn_act_createcharacter" onclick="submitCreateCharacter">Create character</button><br />
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Footer -->
+	<footer>
+		<div id="footer_div" class="flex-box">
+			<div>About</div>
+			<div>Disclaimer</div>
+			<div>World quest event?</div>
+		</div>
+	</footer>	
+</body>
+</html>
